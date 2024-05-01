@@ -72,7 +72,15 @@ public static class ArraysTester
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
+        // get count of data elements
+        int n = data.Count;
 
-        return;
+        // get index number based on amount and data.count
+        amount = amount % n;
+
+        // slice the list to get first elements based on amount and index number
+        // add the rest of the list to the new beginning
+        data.GetRange(n - amount, amount).Concat(data.GetRange(0, n - amount)).ToList();
+
     }
 }
