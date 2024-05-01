@@ -1,8 +1,10 @@
-public static class ArraysTester {
+public static class ArraysTester
+{
     /// <summary>
     /// Entry point for the tests
     /// </summary>
-    public static void Run() {
+    public static void Run()
+    {
         // Sample Test Cases (may not be comprehensive)
         Console.WriteLine("\n=========== PROBLEM 1 TESTS ===========");
         double[] multiples = MultiplesOf(7, 5);
@@ -39,9 +41,22 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
-        return new double[0]; // replace this return statement with your own
+        /* List<double> list = new List<double>();
+        list = Enumerable.Range(1, length).Select(x => number * x).ToList(); */
+
+        // initiate a new list and pass 'length' into it.
+        double[] list = new double[length];
+
+        // for the range of 'length' do
+        for (int i = 0; i < length; i++)
+        {
+            // fill-up the list starting with 'number' followed by multiples of 'number'
+            list[i] = number * (i + 1);
+        }
+
+        return list; // replace this return statement with your own
     }
-    
+
     /// <summary>
     /// Rotate the 'data' to the right by the 'amount'.  For example, if the data is 
     /// <c>&lt;List&gt;{1, 2, 3, 4, 5, 6, 7, 8, 9}</c> and an amount is 3 then the list returned should be 
@@ -57,5 +72,7 @@ public static class ArraysTester {
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
 
+
+        return;
     }
 }
