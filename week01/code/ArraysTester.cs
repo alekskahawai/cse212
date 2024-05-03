@@ -78,9 +78,17 @@ public static class ArraysTester
         // get index number based on amount and data.count
         amount = amount % n;
 
-        // slice the list to get first elements based on amount and index number
         // add the rest of the list to the new beginning
-        data.GetRange(n - amount, amount).Concat(data.GetRange(0, n - amount)).ToList();
+        //data.GetRange(n - amount, amount).Concat(data.GetRange(0, n - amount)).ToList();        
 
+        // slice the list to get first elements based on amount and index number
+        // store it in a new list
+        List<int> head = data.GetRange(n - amount, amount);
+
+        // remove copied first elements from the original list
+        data.RemoveRange(n - amount, amount);
+
+        // insert the first elements in the begenning of the original list
+        data.InsertRange(0, head);
     }
 }
