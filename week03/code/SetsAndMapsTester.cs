@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Text.Json;
 
 public static class SetsAndMapsTester
@@ -167,7 +168,7 @@ public static class SetsAndMapsTester
         return degrees;
     }
 
-    
+
     // Problem 3: Anagrams
     /// <summary>
     /// Determine if 'word1' and 'word2' are anagrams.  An anagram is when the same letters in a word are re-organized into a new word.  A dictionary is used to solve the problem.
@@ -182,7 +183,55 @@ public static class SetsAndMapsTester
     private static bool IsAnagram(string word1, string word2)
     {
         // Todo Problem 3 - ADD YOUR CODE HERE
-        return false;
+        //var _word1 = word1.Replace(" ", "").ToLower();
+        //var _word2 = word2.Replace(" ", "").ToLower()
+        //Console.WriteLine($"{_word1} & {_word2}");
+
+        // create 2 dictionaries <string, int>
+        var dict1 = new Dictionary<string, int>();
+        var dict2 = new Dictionary<string, int>();
+
+        // populate each dictionary with letters from words 1 & 2 respectively
+        foreach (var i in word1)
+        {
+            // convert into lower case
+            var letter = i.ToString().ToLower();
+
+            // ignore 'spaces'
+            if (letter != " ")
+                if (dict1.ContainsKey(letter))
+                    dict1[letter] += 1;
+
+                else
+                    dict1[letter] = 1;
+        }
+
+        foreach (var i in word2)
+        {
+            var letter = i.ToString().ToLower();
+
+            if (letter != " ")
+                if (dict2.ContainsKey(letter))
+                    dict2[letter] += 1;
+
+                else
+                    dict2[letter] = 1;
+        }
+
+        /* foreach (KeyValuePair<string, int> letter in dict1)
+        {
+            Console.WriteLine("Key: {0}, Value: {1}",
+            letter.Key, letter.Value);
+        }
+
+        foreach (KeyValuePair<string, int> letter in dict2)
+        {
+            Console.WriteLine("Key: {0}, Value: {1}",
+            letter.Key, letter.Value);
+        } */
+
+        // sort both dictionaries and compare
+        return dict1.ToImmutableSortedDictionary().SequenceEqual(dict2.ToImmutableSortedDictionary());
     }
 
 
