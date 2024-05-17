@@ -144,6 +144,41 @@ public class LinkedList : IEnumerable<int>
     public void Remove(int value)
     {
         // TODO Problem 3
+        // Search for the node that matches 'value' by starting at the head of the list.
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            if (curr.Data == value)
+            {
+                // If the location of 'value' is in the start of the list,
+                // then we can call RemoveHead to remove 'value' from the list
+                if (curr == _head)
+                {
+                    RemoveHead();
+                }
+
+                // If the location of 'value' is at the end of the list,
+                // then we can call RemoveTail to remove 'value' from the list
+                else if (curr == _tail)
+                {
+                    RemoveTail();
+                }
+
+                // For any other location of 'value'
+                else
+                {
+                    // Set the prev of the node after current to the node before current (current.Next.Prev = current.Prev)
+                    curr.Next.Prev = curr.Prev;
+
+                    // Set the next of the node before current to the node after current (current.Prev.Next = current.Next)
+                    curr.Prev.Next = curr.Next;
+                }
+                // We can exit the function after we removed the value
+                return;
+            }
+            // Go to the next node to search for 'value'
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
