@@ -187,6 +187,18 @@ public class LinkedList : IEnumerable<int>
     public void Replace(int oldValue, int newValue)
     {
         // TODO Problem 4
+        // Search for the node that matches 'oldValue' by starting at the head of the list.
+        Node? curr = _head;
+        while (curr is not null)
+        {
+            // If the node matches the 'oldValue' replace it with the 'newValue'
+            if (curr.Data == oldValue)
+            {
+                curr.Data = newValue;
+            }
+            // Go to the next node to search for 'value'
+            curr = curr.Next;
+        }
     }
 
     /// <summary>
@@ -217,7 +229,16 @@ public class LinkedList : IEnumerable<int>
     public IEnumerable Reverse()
     {
         // TODO Problem 5
-        yield return 0; // replace this line with the correct yield return statement(s)
+        // Start at the end since this is a backward iteration.
+        var curr = _tail;
+        while (curr is not null)
+        {
+            // Provide (yield) each item to the user
+            yield return curr.Data;
+
+            // Go backward in the linked list
+            curr = curr.Prev;
+        }
     }
 
     public override string ToString()
