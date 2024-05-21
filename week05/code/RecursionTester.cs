@@ -1,12 +1,18 @@
-public static class RecursionTester {
+public static class RecursionTester
+{
     /// <summary>
     /// Entry point for the Prove 8 tests
     /// </summary>
-    public static void Run() {
+    public static void Run()
+    {
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== PROBLEM 1 TESTS ===========");
         Console.WriteLine(SumSquaresRecursive(10)); // 385
         Console.WriteLine(SumSquaresRecursive(100)); // 338350
+        //Console.WriteLine(SumSquaresRecursive(0)); // 0
+        //Console.WriteLine(SumSquaresRecursive(1)); // 1        
+        //Console.WriteLine(SumSquaresRecursive(2)); // 5
+
 
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== PROBLEM 2 TESTS ===========");
@@ -67,7 +73,7 @@ public static class RecursionTester {
         Console.WriteLine(CountWaysToClimb(20)); // 121415
         // Uncomment out the test below after implementing memoization.  It won't work without it.
         // TODO Problem 3
-        // Console.WriteLine(CountWaysToClimb(100));  // 180396380815100901214157639
+        Console.WriteLine(CountWaysToClimb(100));  // 180396380815100901214157639
 
         // Sample Test Cases (may not be comprehensive) 
         Console.WriteLine("\n=========== PROBLEM 4 TESTS ===========");
@@ -139,15 +145,25 @@ public static class RecursionTester {
     /// #############
     /// # Problem 1 #
     /// #############
-    /// Using recursion, find the sum of 1^2 + 2^2 + 3^2 + ... + n^2
-    /// and return it.  Remember to both express the solution 
-    /// in terms of recursive call on a smaller problem and 
-    /// to identify a base case (terminating case).  If the value of
-    /// n &lt;= 0, just return 0.   A loop should not be used.
+    /// Using recursion, find the sum of 1^2 + 2^2 + 3^2 + ... + n^2 and return it.  Remember to both express the solution in terms of recursive call on a smaller problem and to identify a base case (terminating case).  If the value of n <= 0, just return 0.   A loop should not be used.
     /// </summary>
-    public static int SumSquaresRecursive(int n) {
+    public static int SumSquaresRecursive(int n)
+    {
         // TODO Start Problem 1
-        return 0;
+        // int result;
+        // base case
+        if (n <= 0)
+        {
+            return 0;
+        }
+
+        // result = (n ^ 2) + SumSquaresRecursive(n - 1);
+
+        // Console.WriteLine(result);
+
+        // return result;
+        return (int)Math.Pow(n, 2) + SumSquaresRecursive(n - 1);
+
     }
 
     /// <summary>
@@ -169,9 +185,26 @@ public static class RecursionTester {
     /// You can assume that the size specified is always valid (between 1 
     /// and the length of the letters list).
     /// </summary>
-    public static void PermutationsChoose(string letters, int size, string word = "") {
+    public static void PermutationsChoose(string letters, int size, string word = "")
+    {
         // TODO Start Problem 2
+        // base case
+        if (word.Length == size)
+        {
+            Console.WriteLine(word);
+        }
+
+        foreach (var i in letters)
+        {
+            // if the letter is not in the word
+            if (!word.Contains(i))
+            {
+                // build a word
+                PermutationsChoose(letters, size, word + i);
+            }
+        }
     }
+
 
     /// <summary>
     /// #############
@@ -218,7 +251,18 @@ public static class RecursionTester {
     /// The last test case is commented out because it will not work
     /// until the memoization is implemented.
     /// </summary>
-    public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null) {
+    public static decimal CountWaysToClimb(int s, Dictionary<int, decimal>? remember = null)
+    {
+        /* if (Dictionary remember == null)
+        {
+            remember = new Dictionary<int, decimal>();
+        } */
+        //var _remember = new Dictionary<int, decimal>();
+
+        // If this is the first time calling the function, then we need to create the dictionary.
+        if (remember == null)
+            remember = new Dictionary<int, decimal>();
+
         // Base Cases
         if (s == 0)
             return 0;
@@ -229,8 +273,15 @@ public static class RecursionTester {
         if (s == 3)
             return 4;
 
+        // Check if we have solved this one before
+        if (remember.ContainsKey(s))
+            return remember[s];
+
         // Solve using recursion
-        decimal ways = CountWaysToClimb(s - 1) + CountWaysToClimb(s - 2) + CountWaysToClimb(s - 3);
+        decimal ways = CountWaysToClimb(s - 1, remember) + CountWaysToClimb(s - 2, remember) + CountWaysToClimb(s - 3, remember);
+
+        // Remember result for later use
+        remember[s] = ways;
         return ways;
     }
 
@@ -247,7 +298,8 @@ public static class RecursionTester {
     /// Using recursion, display all possible binary strings for a given pattern.  You might find 
     /// some of the string functions like IndexOf and [..X] / [X..] to be useful in solving this problem.
     /// </summary>
-    public static void WildcardBinary(string pattern) {
+    public static void WildcardBinary(string pattern)
+    {
         // TODO Start Problem 4
     }
 
@@ -255,7 +307,8 @@ public static class RecursionTester {
     /// Use recursion to Print all paths that start at (0,0) and end at the
     /// 'end' square.
     /// </summary>
-    public static void SolveMaze(Maze maze, int x = 0, int y = 0, List<ValueTuple<int, int>>? currPath = null) {
+    public static void SolveMaze(Maze maze, int x = 0, int y = 0, List<ValueTuple<int, int>>? currPath = null)
+    {
         // If this is the first time running the function, then we need
         // to initialize the currPath list.
         if (currPath == null)
