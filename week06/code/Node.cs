@@ -1,4 +1,4 @@
-// tasks #2 #4
+// tasks #1 #2 #4
 public class Node
 {
     public int Data { get; set; }
@@ -10,7 +10,7 @@ public class Node
         this.Data = data;
     }
 
-    public void Insert(int value)
+    public void Insert(int value) // TODO Start Problem 1
     {
         if (value < Data)
         {
@@ -20,7 +20,7 @@ public class Node
             else
                 Left.Insert(value);
         }
-        else
+        else if (value > Data)
         {
             // Insert to the right
             if (Right is null)
@@ -33,12 +33,37 @@ public class Node
     public bool Contains(int value)
     {
         // TODO Start Problem 2
-        return false;
+        // check for a base case
+
+        if (value == Data)
+        {
+            return true;
+        }
+
+        else if (value < Data)
+        {
+            // check on the left
+            if (Left is null)
+                return false;
+
+            else
+                return Left.Contains(value);
+        }
+
+        else
+        {
+            // check on the right
+            if (Right is null)
+                return false;
+
+            else
+                return Right.Contains(value);
+        }
     }
 
     public int GetHeight()
     {
         // TODO Start Problem 4
-        return 0; // Replace this line with the correct return statement(s)
+        return 0;
     }
 }
